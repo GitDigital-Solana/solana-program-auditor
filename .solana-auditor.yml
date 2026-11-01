@@ -1,0 +1,43 @@
+# Example configuration for solana-program-auditor
+# Place this file at the root of your Solana program repository.
+
+severityThreshold: medium   # low | medium | high | critical
+
+comment:
+  enabled: true
+  updateExisting: true      # update the existing PR comment instead of adding a new one
+
+paths:
+  programs:
+    - programs/
+
+ignore:
+  - '**/node_modules/**'
+  - '**/target/**'
+  - '**/tests/**'
+  - '**/migrations/**'
+
+dynamic:
+  enabled: false            # set to true to run `anchor test` as part of the audit
+  command: anchor test
+  timeoutMs: 300000
+
+# Leave arrays empty to enable all rules.
+rules:
+  anchor:
+    - anchor-accountinfo
+    - anchor-unchecked-account
+    - anchor-close
+    - anchor-owner
+    - anchor-signer
+  rust:
+    - rust-unwrap
+    - rust-panic
+    - rust-unsafe
+    - rust-todo
+  security:
+    - sec-authority-accountinfo
+    - sec-arithmetic-cast
+    - sec-find-program-address
+    - sec-mint-authority
+    - sec-close-account
