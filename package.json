@@ -1,0 +1,31 @@
+{
+  "name": "solana-program-auditor",
+  "version": "0.1.0",
+  "description": "GitHub App that runs static and dynamic security audits on Solana programs for every pull request",
+  "main": "dist/src/index.js",
+  "bin": { "solana-program-auditor": "dist/src/index.js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint . --ext .ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.1.1",
+    "yaml": "^2.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "^8.57.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
+    "vitest": "^1.6.0"
+  },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}
