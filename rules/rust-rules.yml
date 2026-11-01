@@ -1,0 +1,49 @@
+rules:
+  - id: rust-unwrap
+    name: unwrap() usage
+    severity: medium
+    pattern: '\.unwrap\(\)'
+    message: 'unwrap() panics on error; prefer ? with a mapped error or expect() with context.'
+    tags: [rust, panics]
+
+  - id: rust-expect
+    name: expect() usage
+    severity: low
+    pattern: '\.expect\('
+    message: 'expect() panics on error; ensure the invariant is documented and truly infallible.'
+    tags: [rust, panics]
+
+  - id: rust-todo
+    name: unfinished code
+    severity: medium
+    pattern: '\b(todo!|unimplemented!)'
+    message: 'Unimplemented code path — must not ship to mainnet.'
+    tags: [rust]
+
+  - id: rust-panic
+    name: explicit panic
+    severity: medium
+    pattern: '\bpanic!'
+    message: 'Explicit panic; prefer returning an error from the program.'
+    tags: [rust, panics]
+
+  - id: rust-unsafe
+    name: unsafe block
+    severity: high
+    pattern: '\bunsafe\s*\{'
+    message: 'Unsafe block requires careful review for soundness and program safety.'
+    tags: [rust, unsafe]
+
+  - id: rust-print
+    name: debug printing
+    severity: low
+    pattern: '\b(println!|dbg!)'
+    message: 'Debug printing in on-chain code wastes compute units and leaks information.'
+    tags: [rust]
+
+  - id: rust-index
+    name: direct indexing
+    severity: low
+    pattern: '\w+\[[0-9a-zA-Z_]+\]'
+    message: 'Direct slice indexing can panic on out-of-bounds; prefer .get().'
+    tags: [rust]
