@@ -1,0 +1,26 @@
+name: Audit Test
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  self-audit:
+    name: Run auditor on fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Run auditor against fixtures
+        run: npx tsx scripts/self-audit.ts
+        env:
+          AUDITOR_RULES_DIR: rules
+          AUDITOR_CONFIG_PATH: .solana-auditor.yml
