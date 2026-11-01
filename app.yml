@@ -1,0 +1,16 @@
+name: Solana Program Auditor
+description: Automated static and dynamic security audit for Solana programs on every pull request
+url: https://github.com/your-org/solana-program-auditor
+public: false
+hook_attributes:
+  url: https://your-host.example.com/webhooks
+  active: true
+default_events:
+  - pull_request
+  - push
+default_permissions:
+  metadata: read
+  contents: read
+  pull_requests: write
+  issues: write
+  checks: write
