@@ -1,0 +1,56 @@
+rules:
+  - id: sec-authority-accountinfo
+    name: authority as AccountInfo
+    severity: critical
+    pattern: 'authority\s*:\s*AccountInfo'
+    message: 'Authority typed as AccountInfo without a signer check is an authorization-bypass risk.'
+    tags: [security, authorization]
+
+  - id: sec-arithmetic-cast
+    name: unchecked integer cast
+    severity: high
+    pattern: '\bas\s+(u8|u16|u32|u64|u128|i8|i16|i32|i64|i128)\b'
+    message: 'Unchecked `as` cast may silently truncate or wrap; use checked conversions (try_into / checked_*).'
+    tags: [security, arithmetic]
+
+  - id: sec-arithmetic-assign
+    name: assignment arithmetic
+    severity: medium
+    pattern: '[+\-*/]=\s*'
+    message: 'Verify overflow-checks are enabled and values are bounds-checked before assignment arithmetic.'
+    tags: [security, arithmetic]
+
+  - id: sec-find-program-address
+    name: find_program_address
+    severity: high
+    pattern: 'find_program_address'
+    message: 'Prefer create_program_address with a canonical bump stored in the account, or verify find_program_address result.'
+    tags: [security, pda]
+
+  - id: sec-pda-bump
+    name: stored bump
+    severity: high
+    pattern: '\bbump\s*=\s*[a-z_]+\.bump\b'
+    message: 'Storing the bump is correct; ensure the bump was created by the program and re-derived on use.'
+    tags: [security, pda]
+
+  - id: sec-mint-authority
+    name: mint authority changes
+    severity: critical
+    pattern: 'set_authority'
+    message: 'Mint / freeze authority change; ensure the caller is authorized and the change is intentional.'
+    tags: [security, spl-token]
+
+  - id: sec-close-account
+    name: account close
+    severity: high
+    pattern: 'close\s*='
+    message: 'Account close must zero the lamports and reassign the owner before returning.'
+    tags: [security, lifecycle]
+
+  - id: sec-realloc
+    name: realloc
+    severity: high
+    pattern: '\.realloc\('
+    message: 'Realloc must adjust rent-exempt lamports and zero-initialize new data.'
+    tags: [security, memory]
