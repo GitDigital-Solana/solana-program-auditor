@@ -1,0 +1,49 @@
+rules:
+  - id: anchor-accountinfo
+    name: raw AccountInfo
+    severity: medium
+    pattern: '\bAccountInfo\b'
+    message: 'Raw AccountInfo bypasses Anchor constraints; prefer Signer, SystemAccount, Account<>, or Program<>.'
+    tags: [anchor, accounts]
+
+  - id: anchor-unchecked-account
+    name: UncheckedAccount
+    severity: high
+    pattern: '\bUncheckedAccount\b'
+    message: 'UncheckedAccount disables Anchor validations; add explicit constraints and checks.'
+    tags: [anchor, accounts]
+
+  - id: anchor-init
+    name: init constraint
+    severity: low
+    pattern: '#\[account\(init'
+    message: 'Verify init constraints (payer, space, seeds, bump) match the intended account layout.'
+    tags: [anchor, init]
+
+  - id: anchor-close
+    name: close constraint
+    severity: medium
+    pattern: '\bclose\s*='
+    message: 'Confirm close destination is a trusted account controlled by the program authority.'
+    tags: [anchor, lifecycle]
+
+  - id: anchor-constraint
+    name: custom constraint
+    severity: low
+    pattern: '\bconstraint\s*='
+    message: 'Custom constraints should be reviewed for bypass conditions and overflow.'
+    tags: [anchor]
+
+  - id: anchor-owner
+    name: owner check
+    severity: high
+    pattern: '\.owner\s*=='
+    message: 'Direct owner equality check; prefer Account<>, Program<>, or AccountInfo::owner constraint.'
+    tags: [anchor, security]
+
+  - id: anchor-signer
+    name: signer check
+    severity: high
+    pattern: '\.is_signer\b'
+    message: 'Manual is_signer check; prefer the Signer type which enforces this at the type level.'
+    tags: [anchor, security]
